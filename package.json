@@ -1,0 +1,15 @@
+{
+  "name": "playmesh-example",
+  "private": true,
+  "workspaces": [
+    "server",
+    "game",
+    "admin"
+  ],
+  "scripts": {
+    "server": "npm run dev -w server",
+    "game": "npm run dev -w game",
+    "admin": "npm run dev -w admin",
+    "test": "npm run test -w server"
+  }
+}

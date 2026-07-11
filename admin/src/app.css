@@ -1,0 +1,42 @@
+* { box-sizing: border-box; margin: 0; }
+body { font-family: system-ui, sans-serif; background: #f4f7fb; color: #1d3557; }
+h1 { font-size: 1.1rem; margin-bottom: 12px; }
+h2 { font-size: 1rem; margin: 10px 0 6px; }
+h3 { font-size: .95rem; margin-bottom: 8px; }
+button { font: inherit; cursor: pointer; border: 1px solid #cbd5e1; background: #fff; border-radius: 8px; padding: 6px 12px; }
+button.primary { background: #2a6f97; border-color: #2a6f97; color: #fff; }
+button.danger { background: #e63946; border-color: #e63946; color: #fff; }
+button:disabled { opacity: .5; cursor: default; }
+input, select, textarea { font: inherit; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; width: 100%; }
+textarea { min-height: 80px; resize: vertical; }
+ul { list-style: none; padding: 0; }
+
+.layout { display: flex; min-height: 100vh; }
+aside { width: 260px; background: #fff; border-right: 1px solid #e2e8f0; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+aside ul li button { width: 100%; text-align: left; border: none; background: none; padding: 6px 10px; border-radius: 8px; }
+aside ul li button:hover { background: #eef4fa; }
+aside ul li button.active { background: #2a6f97; color: #fff; }
+aside .primary { margin-top: auto; }
+.count { float: right; background: #eef4fa; color: #2a6f97; border-radius: 999px; padding: 0 8px; font-size: .8rem; }
+aside ul li button.active .count { background: rgba(255,255,255,.25); color: #fff; }
+
+main { flex: 1; padding: 20px; }
+.columns { display: grid; grid-template-columns: 1fr 340px; gap: 16px; margin-top: 12px; }
+section { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; }
+.messages { max-height: 70vh; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+.messages li { border-bottom: 1px solid #f1f5f9; padding-bottom: 6px; }
+.messages time { color: #94a3b8; font-size: .8rem; margin-left: 6px; }
+.players li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; }
+.players .actions { margin-left: auto; display: flex; gap: 6px; }
+.players .actions button { padding: 3px 10px; font-size: .85rem; }
+.dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+.empty { color: #94a3b8; }
+
+.login { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+.login form { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px; width: 320px; display: flex; flex-direction: column; gap: 12px; }
+.error { color: #e63946; font-size: .9rem; }
+
+.backdrop { position: fixed; inset: 0; background: rgba(29,53,87,.5); display: flex; align-items: center; justify-content: center; }
+.modal { background: #fff; border-radius: 16px; padding: 24px; width: 380px; display: flex; flex-direction: column; gap: 12px; }
+.row { display: flex; gap: 12px; justify-content: flex-end; align-items: center; }
+.row label { margin-right: auto; }

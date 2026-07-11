@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meadow Pals</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+      background: #cdeafe; display: flex; flex-direction: column; align-items: center;
+      min-height: 100vh; padding: 12px; gap: 10px;
+    }
+    h1 { color: #2a6f97; font-size: 1.6rem; }
+    #game { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(42,111,151,.3); line-height: 0; }
+    .bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: center; }
+    button {
+      font-family: inherit; font-size: 1rem; border: none; border-radius: 999px;
+      padding: 8px 18px; cursor: pointer; background: #ffb703; color: #5a3e00;
+      box-shadow: 0 3px 0 rgba(0,0,0,.15);
+    }
+    button:active { transform: translateY(2px); box-shadow: none; }
+    button.room.active { background: #2a9d8f; color: #fff; }
+    input[type=text] {
+      font-family: inherit; font-size: 1rem; border: 3px solid #90caf9;
+      border-radius: 999px; padding: 8px 16px; outline: none; width: 240px;
+    }
+    #msg { width: min(560px, 75vw); font-size: 1.1rem; padding: 12px 20px; }
+    .swatch {
+      width: 34px; height: 34px; border-radius: 50%; padding: 0; box-shadow: 0 2px 0 rgba(0,0,0,.2);
+      border: 3px solid transparent;
+    }
+    .swatch.active { border-color: #2a6f97; }
+    #chatlog {
+      width: min(960px, 95vw); max-height: 120px; overflow-y: auto; background: #fff;
+      border-radius: 12px; padding: 8px 14px; font-size: .9rem; color: #333;
+    }
+    #chatlog div b { color: #2a6f97; }
+    #overlay, #kicked {
+      position: fixed; inset: 0; background: rgba(120,190,255,.92);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 16px; z-index: 10; text-align: center;
+    }
+    #overlay h1 { font-size: 2.4rem; }
+    #kicked { background: rgba(255,183,3,.95); display: none; }
+    #kicked h1 { color: #7b3f00; }
+    #announce {
+      position: fixed; inset: 0; background: rgba(29,53,87,.55);
+      display: none; align-items: center; justify-content: center; z-index: 20;
+    }
+    #announce .box {
+      background: #fff; border-radius: 20px; padding: 28px 32px; width: min(420px, 90vw);
+      text-align: center; display: flex; flex-direction: column; gap: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35); border: 4px solid #ffb703;
+    }
+    #announce h2 { color: #e63946; font-size: 1.3rem; }
+    #announceMsg { font-size: 1.05rem; color: #1d3557; white-space: pre-wrap; }
+    #err { color: #c1121f; min-height: 1.2em; }
+  </style>
+</head>
+<body>
+  <div id="announce">
+    <div class="box">
+      <h2>📣 Message from the Administrator</h2>
+      <p id="announceMsg"></p>
+      <button id="announceClose">OK, got it!</button>
+    </div>
+  </div>
+
+  <div id="overlay">
+    <h1>🌼 Meadow Pals 🌼</h1>
+    <p>What's your name?</p>
+    <input id="name" type="text" maxlength="16" placeholder="e.g. Luna" autofocus />
+    <p>Pick your color!</p>
+    <div class="bar" id="joinColors"></div>
+    <button id="play">▶ Play!</button>
+    <p id="err"></p>
+  </div>
+
+  <div id="kicked">
+    <h1>Oops! 🙈</h1>
+    <p id="kickReason"></p>
+    <button onclick="location.reload()">Try again</button>
+  </div>
+
+  <h1>🌼 Meadow Pals</h1>
+  <div class="bar" id="rooms"></div>
+  <div id="game"></div>
+  <div class="bar">
+    <input id="msg" type="text" maxlength="120" placeholder="Say something nice…" />
+    <button id="send">💬 Send</button>
+    <span class="bar" id="gameColors"></span>
+  </div>
+  <div id="chatlog"></div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

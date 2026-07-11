@@ -6,6 +6,8 @@ import {
 } from "@playmesh/server";
 
 const PORT = Number(process.env.PORT ?? 4000);
+// ponytail: documented demo credential; override via env for any real deployment
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "playmesh";
 const ROOMS = ["meadow", "beach", "forest"];
 const BLACKLIST = ["stupid", "dummy", "hate", "ugly", "shut up", "poop"];
 const HISTORY_LIMIT = 100;
@@ -26,7 +28,7 @@ mesh.onAuthenticate(async (request) => {
   const username = String(request.auth.username ?? "").trim();
   if (!username) throw new Error("Please pick a name");
   if (username.toLowerCase() === "admin") {
-    if (request.auth.password !== "playmesh")
+    if (request.auth.password !== ADMIN_PASSWORD)
       throw new Error("Wrong admin password");
     return { userId: "admin", roles: ["admin"] };
   }

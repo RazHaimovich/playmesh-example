@@ -119,10 +119,10 @@ mesh.bootstrap(async ({ mesh }) => {
       players: instance.sessions
         .filter((s) => !s.hasRole("admin"))
         .map((s) => ({
-        sessionId: s.id,
-        userId: s.userId,
-        color: s.data.color,
-      })),
+          sessionId: s.id,
+          userId: s.userId,
+          color: s.data.color,
+        })),
     });
   });
 
@@ -163,28 +163,27 @@ mesh.bootstrap(async ({ mesh }) => {
   });
 });
 
-mesh.onChatMessage(({ session, text }) => {
+// 0.6.0: the hook runs once per destination instance, so record per call
+mesh.onChatMessage(({ session, instance, text }) => {
   const lower = text.toLowerCase();
   if (BLACKLIST.some((word) => lower.includes(word))) {
     session.kick(`You used a forbidden word - be kind! 💛`);
     return false;
   }
-  const at = Date.now();
-  const consoleInstance = mesh.getInstance("admin/console");
-  for (const instance of session.instances) {
-    if (instance.domain.id !== "playground") continue;
-    const messages = history.get(instance.path) ?? [];
-    messages.push({
-      instance: instance.path,
-      sessionId: session.id,
-      userId: session.userId,
-      text,
-      at,
-    });
-    if (messages.length > HISTORY_LIMIT) messages.shift();
-    history.set(instance.path, messages);
-    consoleInstance?.broadcast("admin:chat", { path: instance.path });
-  }
+  if (instance.domain.id !== "playground") return true;
+  const messages = history.get(instance.path) ?? [];
+  messages.push({
+    instance: instance.path,
+    sessionId: session.id,
+    userId: session.userId,
+    text,
+    at: Date.now(),
+  });
+  if (messages.length > HISTORY_LIMIT) messages.shift();
+  history.set(instance.path, messages);
+  mesh
+    .getInstance("admin/console")
+    ?.broadcast("admin:chat", { path: instance.path });
   return true;
 });
 
